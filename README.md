@@ -267,11 +267,11 @@ Open `outputs/social_media_ads_report.html` in any browser — no installation n
 
 | Platform | Link |
 |---|---|
-| Kaggle | [kaggle.com/yourusername](https://www.kaggle.com/oladigbolutaofeek)
-| Tableau Public | [public.tableau.com/profile/yourusername](https://public.tableau.com/app/profile/taofeek.oladigbolu4026/vizzes))
-| LinkedIn | [linkedin.com/in/yourusername](https://www.linkedin.com/) |
-| GitHub | [github.com/yourusername](https://www.github.com/Taofeek-11) |
+| Kaggle | [kaggle.com/Taofeek OLADIGBOLU](https://www.kaggle.com/oladigbolutaofeek)
+| Tableau Public | [public.tableau.com/Taofeek OLADIGBOLU](https://public.tableau.com/app/profile/taofeek.oladigbolu4026/vizzes)
+| LinkedIn | [linkedin.com/Taofeek OLADIGBOLU](https://www.linkedin.com/) |
+| GitHub | [github.com/Taofeek OLADIGBOLU](https://www.github.com/Taofeek-11) |
 
 ---
 
-*If you found this project useful, please consider giving it a star on GitHub and a favorite on Tableau Public.*
+*If you found this project useful, please consider giving it a star on GitHub, a upvote on Kaggle, and a favorite on Tableau Public.*
