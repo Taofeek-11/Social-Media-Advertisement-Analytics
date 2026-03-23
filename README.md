@@ -3,7 +3,7 @@
 
 ---
 
-![Dashboard Preview](tableau/dashboard_screenshots/overview.png)
+![Dashboard Preview](tableau/dashboard_overview.png)
 
 ---
 
