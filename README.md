@@ -215,7 +215,7 @@ The interactive Tableau dashboard was built with **9 sheets** assembled into **2
 ### Calculated fields used
 22 calculated fields including LOD expressions (`FIXED`), window functions (`WINDOW_MAX`, `WINDOW_MIN`), parameter-driven metric switching, and dynamic tier classification.
 
-**View the live dashboard →** [Tableau Public]([https://public.tableau.com/](https://public.tableau.com/app/profile/taofeek.oladigbolu4026/viz/Social_Media_Advertisement/Dashboard1)
+**View the live dashboard →** [Tableau Public](https://public.tableau.com/app/profile/taofeek.oladigbolu4026/viz/Social_Media_Advertisement/Dashboard1)
 
 ---
 
