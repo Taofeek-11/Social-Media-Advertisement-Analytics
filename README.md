@@ -123,19 +123,15 @@ social-media-ads-analytics/
 │
 ├── tableau/
 │   ├── dashboard_screenshots/
-│   │   ├── overview.png
-│   │   ├── efficiency_quadrant.png
-│   │   ├── monthly_trend.png
-│   │   └── channel_heatmap.png
-│   └── tableau_workbook_guide.md     ← All calculated fields + build guide
+│       ├── overview.png
+│       ├── efficiency_quadrant.png
+│       ├── monthly_trend.png
+│       └── channel_heatmap.png
+│   
 │
 ├── outputs/
 │   ├── channel_goal_summary.csv      ← Exported aggregation table
 │   └── social_media_ads_report.html  ← Standalone HTML report
-│
-└── assets/
-    ├── kaggle_logo.png
-    └── tableau_logo.png
 ```
 
 ---
