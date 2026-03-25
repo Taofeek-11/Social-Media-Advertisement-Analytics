@@ -191,7 +191,7 @@ ROI shows a clear upward trend from January (4.8x) to November (5.8x), suggestin
 
 ## Tableau Dashboard
 
-The interactive Tableau dashboard was built with **9 sheets** assembled into **2 dashboard views**.
+The interactive Tableau dashboard was built with **9 sheets** assembled into **a dashboard view**.
 
 ### Features built
 - 5 KPI scorecards with monthly sparklines and delta vs average
