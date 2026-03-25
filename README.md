@@ -131,7 +131,6 @@ social-media-ads-analytics/
 │
 ├── outputs/
 │   ├── channel_goal_summary.csv      ← Exported aggregation table
-│   └── social_media_ads_report.html  ← Standalone HTML report
 ```
 
 ---
