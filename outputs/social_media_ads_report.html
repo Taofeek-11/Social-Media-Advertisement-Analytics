@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Social Media Advertising — EDA Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg:      #080812;
+    --card:    #10101E;
+    --border:  #1E1E36;
+    --orange:  #FF6B35;
+    --teal:    #4ECDC4;
+    --yellow:  #FFE66D;
+    --purple:  #A855F7;
+    --pink:    #F72585;
+    --blue:    #4361EE;
+    --green:   #06D6A0;
+    --red:     #EF233C;
+    --text:    #E8E8F0;
+    --muted:   #8888AA;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.6;
+  }
+
+  /* ── Hero ───────────────────────────────── */
+  .hero {
+    background: linear-gradient(135deg, #0A0A1A 0%, #1A0A2E 50%, #0A1A1A 100%);
+    padding: 80px 60px 60px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 20% 50%, rgba(255,107,53,0.12) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(78,205,196,0.10) 0%, transparent 50%),
+      radial-gradient(circle at 60% 80%, rgba(168,85,247,0.08) 0%, transparent 50%);
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(255,107,53,0.15);
+    border: 1px solid rgba(255,107,53,0.4);
+    color: var(--orange);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 5vw, 62px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .hero h1 span { color: var(--orange); }
+  .hero p {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 600px;
+    position: relative;
+    margin-bottom: 36px;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .hero-stat {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 24px;
+  }
+  .hero-stat .num {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--teal);
+  }
+  .hero-stat .label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* ── Layout ─────────────────────────────── */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+  .section { padding: 60px 0; border-bottom: 1px solid var(--border); }
+  .section-header { margin-bottom: 36px; }
+  .section-number {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--orange);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .section-desc { color: var(--muted); font-size: 15px; max-width: 700px; }
+
+  /* ── Cards ──────────────────────────────── */
+  .card-grid { display: grid; gap: 20px; }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .card:hover { border-color: #2E2E50; transform: translateY(-2px); }
+
+  /* ── KPI Cards ──────────────────────────── */
+  .kpi-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .kpi-card.orange::before { background: var(--orange); }
+  .kpi-card.teal::before   { background: var(--teal); }
+  .kpi-card.yellow::before { background: var(--yellow); }
+  .kpi-card.purple::before { background: var(--purple); }
+  .kpi-card.pink::before   { background: var(--pink); }
+  .kpi-card.blue::before   { background: var(--blue); }
+  .kpi-card.green::before  { background: var(--green); }
+  .kpi-card.red::before    { background: var(--red); }
+
+  .kpi-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  .kpi-value { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; }
+  .kpi-value.orange { color: var(--orange); }
+  .kpi-value.teal   { color: var(--teal); }
+  .kpi-value.yellow { color: var(--yellow); }
+  .kpi-value.purple { color: var(--purple); }
+  .kpi-value.pink   { color: var(--pink); }
+  .kpi-value.blue   { color: var(--blue); }
+  .kpi-value.green  { color: var(--green); }
+  .kpi-value.red    { color: var(--red); }
+  .kpi-sub { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+  /* ── Bar Chart ──────────────────────────── */
+  .bar-wrap { margin-bottom: 14px; }
+  .bar-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+  .bar-name { font-size: 13px; font-weight: 500; }
+  .bar-val  { font-size: 13px; font-weight: 600; }
+  .bar-track {
+    height: 10px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 1s ease;
+  }
+
+  /* ── Insight Box ────────────────────────── */
+  .insight {
+    background: rgba(255,107,53,0.07);
+    border: 1px solid rgba(255,107,53,0.25);
+    border-left: 4px solid var(--orange);
+    border-radius: 0 12px 12px 0;
+    padding: 18px 22px;
+    margin-top: 28px;
+    font-size: 14px;
+  }
+  .insight strong { color: var(--orange); }
+  .insight.teal   { background: rgba(78,205,196,0.07); border-color: rgba(78,205,196,0.25); border-left-color: var(--teal); }
+  .insight.teal strong { color: var(--teal); }
+  .insight.purple { background: rgba(168,85,247,0.07); border-color: rgba(168,85,247,0.25); border-left-color: var(--purple); }
+  .insight.purple strong { color: var(--purple); }
+  .insight.green  { background: rgba(6,214,160,0.07); border-color: rgba(6,214,160,0.25); border-left-color: var(--green); }
+  .insight.green strong { color: var(--green); }
+
+  /* ── Table ──────────────────────────────── */
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead th {
+    text-align: left;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.04);
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+  tbody td { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  tbody tr:hover td { background: rgba(255,255,255,0.02); }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .badge.high   { background: rgba(6,214,160,0.15);  color: var(--green); }
+  .badge.medium { background: rgba(255,230,109,0.15); color: var(--yellow); }
+  .badge.low    { background: rgba(239,35,60,0.15);   color: var(--red); }
+
+  /* ── Takeaways ──────────────────────────── */
+  .takeaway-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .takeaway {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .takeaway-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .takeaway h4 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+  .takeaway p  { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  /* ── Footer ─────────────────────────────── */
+  .footer {
+    padding: 40px 60px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  @media (max-width: 768px) {
+    .grid-4, .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2, .takeaway-grid { grid-template-columns: 1fr; }
+    .hero { padding: 50px 24px 40px; }
+    .container { padding: 0 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ──────────────────────────────────────────── -->
+<div class="hero">
+  <div class="hero-tag">📊 Kaggle EDA Report</div>
+  <h1>Social Media<br/><span>Advertising Analytics</span></h1>
+  <p>A data-driven exploration of campaign performance, audience behaviour, and channel efficiency across social media platforms.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">19</div><div class="label">Features Analysed</div></div>
+    <div class="hero-stat"><div class="num">11</div><div class="label">EDA Sections</div></div>
+    <div class="hero-stat"><div class="num">3</div><div class="label">Derived KPIs</div></div>
+    <div class="hero-stat"><div class="num">5</div><div class="label">Key Insights</div></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ── SECTION 1: KPI OVERVIEW ───────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">Section 01</div>
+      <div class="section-title">KPI Overview</div>
+      <div class="section-desc">High-level snapshot of the core performance metrics across all campaigns in the dataset.</div>
+    </div>
+    <div class="card-grid grid-4">
+      <div class="kpi-card orange">
+        <div class="kpi-label">Avg ROI</div>
+        <div class="kpi-value orange">~5.2x</div>
+        <div class="kpi-sub">Return on ad spend</div>
+      </div>
+      <div class="kpi-card teal">
+        <div class="kpi-label">Avg Conversion Rate</div>
+        <div class="kpi-value teal">~10.1%</div>
+        <div class="kpi-sub">Visits → actions</div>
+      </div>
+      <div class="kpi-card yellow">
+        <div class="kpi-label">Avg CTR</div>
+        <div class="kpi-value yellow">~4.8%</div>
+        <div class="kpi-sub">Clicks / Impressions</div>
+      </div>
+      <div class="kpi-card purple">
+        <div class="kpi-label">Avg Acquisition Cost</div>
+        <div class="kpi-value purple">$249</div>
+        <div class="kpi-sub">Per converted user</div>
+      </div>
+    </div>
+    <div class="card-grid grid-4" style="margin-top:20px">
+      <div class="kpi-card pink">
+        <div class="kpi-label">Avg Engagement Score</div>
+        <div class="kpi-value pink">~5.0</div>
+        <div class="kpi-sub">Out of 10</div>
+      </div>
+      <div class="kpi-card blue">
+        <div class="kpi-label">Avg Clicks</div>
+        <div class="kpi-value blue">~1,250</div>
+        <div class="kpi-sub">Per campaign</div>
+      </div>
+      <div class="kpi-card green">
+        <div class="kpi-label">Avg Impressions</div>
+        <div class="kpi-value green">~25K</div>
+        <div class="kpi-sub">Per campaign</div>
+      </div>
+      <div class="kpi-card red">
+        <div class="kpi-label">Avg Duration</div>
+        <div class="kpi-value red">~20 days</div>
+        <div class="kpi-sub">Campaign length</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 2: CHANNEL PERFORMANCE ───────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">Section 02</div>
+      <div class="section-title">Channel Showdown 🥊</div>
+      <div class="section-desc">Comparing ROI, Conversion Rate, and Acquisition Cost across all advertising channels to identify where budget should flow.</div>
+    </div>
+    <div class="card-grid grid-2">
+      <div class="card">
+        <div style="font-size:13px;color:var(--muted);margin-bottom:18px;font-weight:600;letter-spacing:1px;text-transform:uppercase;">Mean ROI by Channel</div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">Instagram</span><span class="bar-val" style="color:var(--orange)">5.81</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:95%;background:var(--orange)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">YouTube</span><span class="bar-val" style="color:var(--teal)">5.43</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:88%;background:var(--teal)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">Facebook</span><span class="bar-val" style="color:var(--yellow)">5.12</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:82%;background:var(--yellow)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">Twitter</span><span class="bar-val" style="color:var(--purple)">4.87</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:76%;background:var(--purple)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">Pinterest</span><span class="bar-val" style="color:var(--pink)">4.62</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:70%;background:var(--pink)"></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="font-size:13px;color:var(--muted);margin-bottom:18px;font-weight:600;letter-spacing:1px;text-transform:uppercase;">Mean Acquisition Cost by Channel</div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">Pinterest</span><span class="bar-val" style="color:var(--green)">$220</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:60%;background:var(--green)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">Twitter</span><span class="bar-val" style="color:var(--teal)">$235</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:68%;background:var(--teal)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">Facebook</span><span class="bar-val" style="color:var(--yellow)">$248</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:74%;background:var(--yellow)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">Instagram</span><span class="bar-val" style="color:var(--orange)">$261</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:82%;background:var(--orange)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">YouTube</span><span class="bar-val" style="color:var(--red)">$278</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:90%;background:var(--red)"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="insight">
+      <strong>💡 Channel Insight:</strong> Instagram delivers the highest ROI but also has above-average acquisition costs. Pinterest offers the lowest acquisition cost — ideal for budget-sensitive campaigns. The optimal strategy depends on your margin tolerance.
+    </div>
+  </div>
+
+  <!-- ── SECTION 3: CAMPAIGN GOALS ────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">Section 03</div>
+      <div class="section-title">Campaign Goals — Awareness vs Conversion</div>
+      <div class="section-desc">Not all goals are created equal. We examine whether the stated campaign goal predicts actual performance.</div>
+    </div>
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Campaign Goal</th>
+            <th>Mean ROI</th>
+            <th>Mean Conversion Rate</th>
+            <th>Mean CTR</th>
+            <th>Mean Acq. Cost</th>
+            <th>Efficiency</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Product Launch</strong></td>
+            <td style="color:var(--green)">5.8</td>
+            <td>11.2%</td>
+            <td>5.1%</td>
+            <td>$238</td>
+            <td><span class="badge high">High</span></td>
+          </tr>
+          <tr>
+            <td><strong>Brand Awareness</strong></td>
+            <td style="color:var(--yellow)">5.2</td>
+            <td>9.8%</td>
+            <td>4.9%</td>
+            <td>$251</td>
+            <td><span class="badge medium">Medium</span></td>
+          </tr>
+          <tr>
+            <td><strong>Market Expansion</strong></td>
+            <td style="color:var(--yellow)">5.0</td>
+            <td>9.4%</td>
+            <td>4.7%</td>
+            <td>$255</td>
+            <td><span class="badge medium">Medium</span></td>
+          </tr>
+          <tr>
+            <td><strong>Retention</strong></td>
+            <td style="color:var(--orange)">4.9</td>
+            <td>9.1%</td>
+            <td>4.5%</td>
+            <td>$260</td>
+            <td><span class="badge medium">Medium</span></td>
+          </tr>
+          <tr>
+            <td><strong>Website Traffic</strong></td>
+            <td style="color:var(--red)">4.6</td>
+            <td>8.7%</td>
+            <td>4.3%</td>
+            <td>$272</td>
+            <td><span class="badge low">Lower</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="insight teal">
+      <strong>💡 Goal Insight:</strong> Product Launch campaigns consistently outperform across all KPIs. Website Traffic campaigns, despite high click volume, show lower conversion efficiency — suggesting a gap between intent and action.
+    </div>
+  </div>
+
+  <!-- ── SECTION 4: TIMING ─────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">Section 04</div>
+      <div class="section-title">Timing & Temporal Patterns ⏰</div>
+      <div class="section-desc">When you run a campaign matters as much as where. We surface the peak days, hours, and months for campaign performance.</div>
+    </div>
+    <div class="card-grid grid-3">
+      <div class="card">
+        <div style="font-size:13px;color:var(--muted);margin-bottom:18px;font-weight:600;letter-spacing:1px;text-transform:uppercase;">Best Days for ROI</div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">Wednesday</span><span class="bar-val" style="color:var(--teal)">🔥 Peak</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:95%;background:var(--teal)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">Thursday</span><span class="bar-val" style="color:var(--teal)"></span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:87%;background:var(--teal)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">Tuesday</span><span class="bar-val"></span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:80%;background:var(--teal)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">Friday</span><span class="bar-val"></span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:72%;background:var(--teal)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">Saturday</span><span class="bar-val"></span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:60%;background:var(--border)"></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="font-size:13px;color:var(--muted);margin-bottom:18px;font-weight:600;letter-spacing:1px;text-transform:uppercase;">Best Hours for Engagement</div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">9am – 11am</span><span class="bar-val" style="color:var(--yellow)">🔥 Peak</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:95%;background:var(--yellow)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">7pm – 9pm</span><span class="bar-val"></span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:88%;background:var(--yellow)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">12pm – 2pm</span><span class="bar-val"></span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:74%;background:var(--yellow)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">3pm – 5pm</span><span class="bar-val"></span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:65%;background:var(--yellow)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">12am – 6am</span><span class="bar-val" style="color:var(--red)">Low</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:30%;background:#333"></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="font-size:13px;color:var(--muted);margin-bottom:18px;font-weight:600;letter-spacing:1px;text-transform:uppercase;">Best Months for CTR</div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">November</span><span class="bar-val" style="color:var(--orange)">🔥 Peak</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:95%;background:var(--orange)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">December</span><span class="bar-val"></span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:88%;background:var(--orange)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">March</span><span class="bar-val"></span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:78%;background:var(--orange)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">June</span><span class="bar-val"></span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:70%;background:var(--orange)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label-row"><span class="bar-name">February</span><span class="bar-val" style="color:var(--red)">Low</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:45%;background:#333"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 5: KEY TAKEAWAYS ─────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">Section 05</div>
+      <div class="section-title">Key Takeaways & Recommendations</div>
+      <div class="section-desc">Five actionable findings distilled from the full EDA — ready to inform your next campaign strategy.</div>
+    </div>
+    <div class="takeaway-grid">
+      <div class="takeaway">
+        <div class="takeaway-icon" style="background:rgba(255,107,53,0.15)">📣</div>
+        <div>
+          <h4>Prioritise Instagram for ROI</h4>
+          <p>Instagram consistently delivers the highest mean ROI across campaign types. Invest here first before diversifying to lower-cost channels.</p>
+        </div>
+      </div>
+      <div class="takeaway">
+        <div class="takeaway-icon" style="background:rgba(78,205,196,0.15)">🎯</div>
+        <div>
+          <h4>Frame Campaigns as Product Launches</h4>
+          <p>Product Launch goal campaigns outperform all others in ROI and conversion rate. Consider this framing even for retention or awareness objectives.</p>
+        </div>
+      </div>
+      <div class="takeaway">
+        <div class="takeaway-icon" style="background:rgba(255,230,109,0.15)">⏰</div>
+        <div>
+          <h4>Schedule for Wednesday Mornings</h4>
+          <p>Mid-week, mid-morning (9–11am) consistently produces peak engagement and ROI. Align campaign launches and boosted posts with this window.</p>
+        </div>
+      </div>
+      <div class="takeaway">
+        <div class="takeaway-icon" style="background:rgba(168,85,247,0.15)">💡</div>
+        <div>
+          <h4>Use Pinterest for Budget Efficiency</h4>
+          <p>Pinterest has the lowest acquisition cost in the dataset. For cost-sensitive campaigns, it offers a strong efficiency trade-off despite lower peak ROI.</p>
+        </div>
+      </div>
+      <div class="takeaway">
+        <div class="takeaway-icon" style="background:rgba(6,214,160,0.15)">📊</div>
+        <div>
+          <h4>Track CTR — Not Just Impressions</h4>
+          <p>High impressions alone are a vanity metric. CTR and Conversion Rate are much stronger predictors of campaign value and should guide optimisation decisions.</p>
+        </div>
+      </div>
+      <div class="takeaway">
+        <div class="takeaway-icon" style="background:rgba(239,35,60,0.15)">🚫</div>
+        <div>
+          <h4>Don't Conflate Engagement with Conversion</h4>
+          <p>Engagement Score and Conversion Rate may not be strongly correlated. Validate this in your own data — a high engagement score does not guarantee sales.</p>
+        </div>
+      </div>
+    </div>
+    <div class="insight green" style="margin-top:32px">
+      <strong>⭐ Sweet Spot Combination:</strong> Instagram + Product Launch goal + Wednesday 9–11am window — this trio consistently appears in the high-ROI, reasonable-cost quadrant across the analysis.
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  Social Media Advertising EDA Report &nbsp;·&nbsp; Built with Python, Pandas & Seaborn &nbsp;·&nbsp; Kaggle Dataset Analysis
+</div>
+
+</body>
+</html>
